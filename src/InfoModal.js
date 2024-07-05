@@ -1,5 +1,5 @@
 // import React from 'react';
-// import './styles.css'; // Importez le fichier CSS
+// import './styles.css'; // 
 
 // function InfoModal({ onClose }) {
 //   return (
