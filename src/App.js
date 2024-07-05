@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Header';
+import FragmentList from './FragmentList';
+import FragmentForm from './FragmentForm';
+import InfoPage from './InfoPage';
+import './styles.css';
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={isDarkMode ? 'dark-mode' : 'light-mode'}>
+        <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+        <main>
+          <Routes>
+            <Route path="/" element={<FragmentList />} />
+            <Route path="/form" element={<FragmentForm />} />
+            <Route path="/info" element={<InfoPage />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
