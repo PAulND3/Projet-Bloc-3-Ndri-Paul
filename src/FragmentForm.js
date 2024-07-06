@@ -7,6 +7,7 @@ function FragmentForm() {
   const fragment = location.state?.fragment || { title: '', content: '' };
   const [title, setTitle] = useState(fragment.title);
   const [content, setContent] = useState(fragment.content);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (location.state?.fragment) {
@@ -15,7 +16,20 @@ function FragmentForm() {
     }
   }, [location.state]);
 
+  const validate = () => {
+    const newErrors = {};
+    if (!title) newErrors.title = 'Title is required';
+    if (!content) newErrors.content = 'Content is required';
+    return newErrors;
+  };
+
   const handleSave = () => {
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     const newFragment = { title, content };
     const existingFragments = JSON.parse(localStorage.getItem('fragments')) || [];
     if (location.state?.fragment) {
@@ -55,14 +69,18 @@ function FragmentForm() {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                className={errors.title ? 'error' : ''}
               />
+              {errors.title && <p className="error-message">{errors.title}</p>}
             </div>
             <div className="form-group">
               <label>Content:</label>
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                className={errors.content ? 'error' : ''}
               />
+              {errors.content && <p className="error-message">{errors.content}</p>}
             </div>
           </form>
         </div>

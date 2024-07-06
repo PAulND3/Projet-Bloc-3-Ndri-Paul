@@ -266,7 +266,7 @@ code {
 .dark-mode .form-group textarea {
   background-color: #444;
   border: 1px solid #555;
-  color: #fff;
+  color: #000000;
 }
 
 .dark-mode .form-group label {
@@ -292,3 +292,14 @@ code {
 .new-button:hover {
   background-color:#333333 ;
 }
+
+.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
